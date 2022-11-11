@@ -11,9 +11,7 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.TimeZone;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import java.util.logging.Logger;
 
 /**
  *
@@ -21,7 +19,6 @@ import org.slf4j.LoggerFactory;
  */
 public class Utils {
 
-    private static final Logger log = LoggerFactory.getLogger(Utils.class);
 
     public static final BigDecimal HUNDRED = new BigDecimal(100);
     public static final BigDecimal THOUSAND = new BigDecimal(1000);
@@ -82,8 +79,8 @@ public class Utils {
             }
             result = new BigDecimal(data).multiply(multiplier);
         } catch (NumberFormatException e) {
-            log.warn("Failed to parse: " + data);
-            log.debug("Failed to parse: " + data, e);
+            log.warning("Failed to parse: " + data);
+            log.warning("Failed to parse: " + data);
         }
         return result;
     }
@@ -122,8 +119,8 @@ public class Utils {
             }
             result = Double.parseDouble(data) * multiplier;
         } catch (NumberFormatException e) {
-            log.warn("Failed to parse: " + data);
-            log.debug("Failed to parse: " + data, e);
+            log.warning("Failed to parse: " + data);
+            log.warning("Failed to parse: " + data, e);
         }
         return result;
     }
@@ -137,8 +134,8 @@ public class Utils {
             data = Utils.cleanNumberString(data);
             result = Integer.parseInt(data);
         } catch (NumberFormatException e) {
-            log.warn("Failed to parse: " + data);
-            log.debug("Failed to parse: " + data, e);
+            log.warning("Failed to parse: " + data);
+            log.warning("Failed to parse: " + data, e);
         }
         return result;
     }
@@ -152,8 +149,8 @@ public class Utils {
             data = Utils.cleanNumberString(data);
             result = Long.parseLong(data);
         } catch (NumberFormatException e) {
-            log.warn("Failed to parse: " + data);
-            log.debug("Failed to parse: " + data, e);
+            log.warning("Failed to parse: " + data);
+            log.warning("Failed to parse: " + data, e);
         }
         return result;
     }
@@ -218,8 +215,8 @@ public class Utils {
 
             return parsedDate;
         } catch (ParseException ex) {
-            log.warn("Failed to parse dividend date: " + date);
-            log.debug("Failed to parse dividend date: " + date, ex);
+            log.warning("Failed to parse dividend date: " + date);
+            log.warning("Failed to parse dividend date: " + date, ex);
             return null;
         }
     }
@@ -245,8 +242,8 @@ public class Utils {
                 return c;
             }
         } catch (ParseException ex) {
-            log.warn("Failed to parse datetime: " + datetime);
-            log.debug("Failed to parse datetime: " + datetime, ex);
+            log.warning("Failed to parse datetime: " + datetime);
+            log.warning("Failed to parse datetime: " + datetime, ex);
         }
         return null;
     }
@@ -260,14 +257,14 @@ public class Utils {
                 return c;
             }
         } catch (ParseException ex) {
-            log.warn("Failed to parse hist date: " + date);
-            log.debug("Failed to parse hist date: " + date, ex);
+            log.warning("Failed to parse hist date: " + date);
+            log.warning("Failed to parse hist date: " + date, ex);
         }
         return null;
     }
 
     public static Calendar unixToCalendar(long timestamp) {
-        log.debug("unixToCalendar " + timestamp);
+        log.warning("unixToCalendar " + timestamp);
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(timestamp * 1000);
         return calendar;
@@ -286,7 +283,7 @@ public class Utils {
                 key = URLEncoder.encode(key, "UTF-8");
                 value = URLEncoder.encode(value, "UTF-8");
             } catch (UnsupportedEncodingException ex) {
-                log.error(ex.getMessage(), ex);
+                log.warning(ex.getMessage(), ex);
                 // Still try to continue with unencoded values
             }
             sb.append(String.format("%s=%s", key, value));
